@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ShopList - Home</title>
+
+  <script src="js/theme.js?v=2"></script>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      max-width: 400px;
+      margin: 0 auto;
+
+      background: #f5f7fa;
+
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      background: #1E6FEB;
+
+      color: white;
+
+      padding: 16px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      width: 38px;
+      height: 38px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: white;
+      color: #1E6FEB;
+
+      font-size: 27px;
+      line-height: 1;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.15);
+
+      transition:
+        transform 0.15s ease,
+        background 0.25s ease;
+    }
+
+    .add-btn:active {
+      transform: scale(0.92);
+    }
+
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      background: white;
+
+      margin: 12px;
+
+      padding: 14px;
+
+      border-radius: 14px;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 8px;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.06);
+
+      flex-shrink: 0;
+
+      transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #888;
+
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .stat-value.blue {
+      color: #1E6FEB;
+    }
+
+    .stat-value.green {
+      color: #16a34a;
+    }
+
+    .stat-value.orange {
+      color: #f59e0b;
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .content {
+      flex: 1;
+
+      overflow-y: auto;
+
+      padding: 0 12px 12px;
+
+      min-height: 0;
+    }
+
+
+    /* =========================
+       TABS
+    ========================= */
+
+    .tabs {
+      display: flex;
+
+      gap: 8px;
+
+      margin-bottom: 10px;
+    }
+
+    .tab {
+      flex: 1;
+
+      border: 1px solid #e0e4ea;
+
+      background: white;
+
+      color: #777;
+
+      border-radius: 10px;
+
+      padding: 9px 5px;
+
+      font-size: 12px;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .tab.active {
+      background: #1E6FEB;
+
+      color: white;
+
+      border-color: #1E6FEB;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       ITEM LIST
+    ========================= */
+
+    .item-list {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 10px;
+    }
+
+
+    /* =========================
+       ITEM CARD
+    ========================= */
+
+    .item {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 12px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.06);
+
+      cursor: pointer;
+
+      transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.15s ease;
+    }
+
+    .item:active {
+      transform: scale(0.99);
+    }
+
+
+    /* =========================
+       CHECKBOX
+    ========================= */
+
+    .checkbox {
+      width: 22px;
+      height: 22px;
+
+      border: 2px solid #bbb;
+
+      border-radius: 6px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: white;
+
+      cursor: pointer;
+
+      color: white;
+
+      font-size: 14px;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .checkbox.checked {
+      background: #1E6FEB;
+
+      border-color: #1E6FEB;
+    }
+
+
+    /* =========================
+       PHOTO
+    ========================= */
+
+    .photo {
+      width: 52px;
+      height: 52px;
+
+      border-radius: 10px;
+
+      object-fit: cover;
+
+      flex-shrink: 0;
+
+      background: #f0f2f5;
+    }
+
+    .no-photo {
+      width: 52px;
+      height: 52px;
+
+      border-radius: 10px;
+
+      background: #EAF3FF;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 24px;
+
+      flex-shrink: 0;
+    }
+
+
+    /* =========================
+       ITEM INFO
+    ========================= */
+
+    .item-info {
+      flex: 1;
+
+      min-width: 0;
+    }
+
+    .item-name {
+      font-size: 15px;
+
+      font-weight: 700;
+
+      color: #222;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      margin-bottom: 3px;
+    }
+
+    .item-qty {
+      font-size: 12px;
+
+      color: #888;
+
+      margin-bottom: 4px;
+    }
+
+    .amount-row {
+      display: flex;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+    }
+
+    .pre-amount {
+      font-size: 11px;
+
+      color: #777;
+    }
+
+    .actual-amount {
+      font-size: 11px;
+
+      color: #16a34a;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       MENU BUTTON
+    ========================= */
+
+    .menu-btn {
+      border: none;
+
+      background: transparent;
+
+      color: #888;
+
+      font-size: 22px;
+
+      padding: 4px;
+
+      cursor: pointer;
+
+      flex-shrink: 0;
+    }
+
+
+    /* =========================
+       EMPTY STATE
+    ========================= */
+
+    .empty {
+      text-align: center;
+
+      color: #aaa;
+
+      padding: 60px 20px;
+
+      font-size: 14px;
+    }
+
+    .empty-title {
+      font-size: 16px;
+
+      font-weight: 700;
+
+      color: #777;
+
+      margin-bottom: 6px;
+    }
+
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .modal {
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(0,0,0,0.45);
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      z-index: 1000;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: calc(100% - 40px);
+
+      max-width: 360px;
+
+      background: white;
+
+      border-radius: 16px;
+
+      padding: 20px;
+
+      box-shadow:
+        0 8px 30px rgba(0,0,0,0.2);
+
+      transition:
+        background 0.25s ease;
+    }
+
+    .modal-title {
+      font-size: 18px;
+
+      font-weight: 700;
+
+      color: #222;
+
+      margin-bottom: 8px;
+    }
+
+    .modal-text {
+      font-size: 13px;
+
+      color: #777;
+
+      margin-bottom: 14px;
+    }
+
+    .amount-input {
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px solid #ddd;
+
+      border-radius: 10px;
+
+      font-size: 16px;
+
+      outline: none;
+
+      margin-bottom: 14px;
+
+      background: white;
+
+      color: #222;
+    }
+
+    .amount-input:focus {
+      border-color: #1E6FEB;
+    }
+
+    .modal-actions {
+      display: flex;
+
+      gap: 8px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+
+      padding: 11px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background: #eee;
+
+      color: #555;
+    }
+
+    .save-btn {
+      background: #1E6FEB;
+
+      color: white;
+    }
+
+
+    /* =========================
+       BOTTOM NAV
+    ========================= */
+
+    .bottom-nav {
+      background: white;
+
+      border-top: 1px solid #eee;
+
+      display: flex;
+
+      padding: 8px 0 12px;
+
+      flex-shrink: 0;
+
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .nav-item {
+      flex: 1;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      color: #999;
+
+      cursor: pointer;
+
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .nav-item .icon {
+      font-size: 20px;
+
+      display: block;
+
+      margin-bottom: 2px;
+    }
+
+    .nav-item.active {
+      color: #1E6FEB;
+
+      font-weight: 700;
+    }
+
+
+    /* =================================================
+       DARK MODE
+    ================================================= */
+
+    body.dark {
+      background: #12151c !important;
+
+      color: #e8e8e8 !important;
+    }
+
+
+    body.dark .stats {
+      background: #1c2330 !important;
+
+      box-shadow: none !important;
+    }
+
+
+    body.dark .stat-label {
+      color: #999 !important;
+    }
+
+
+    body.dark .stat-value {
+      color: #e8e8e8 !important;
+    }
+
+
+    body.dark .stat-value.blue {
+      color: #7fb0f5 !important;
+    }
+
+
+    body.dark .stat-value.green {
+      color: #6ee7a0 !important;
+    }
+
+
+    body.dark .stat-value.orange {
+      color: #ffd166 !important;
+    }
+
+
+    body.dark .tab {
+      background: #1c2330 !important;
+
+      color: #7fb0f5 !important;
+
+      border-color: #2f4a75 !important;
+    }
+
+
+    body.dark .tab.active {
+      background: #1E6FEB !important;
+
+      color: white !important;
+
+      border-color: #1E6FEB !important;
+    }
+
+
+    body.dark .item {
+      background: #1c2330 !important;
+
+      box-shadow: none !important;
+    }
+
+
+    body.dark .item-name {
+      color: #e8e8e8 !important;
+    }
+
+
+    body.dark .item-qty {
+      color: #999 !important;
+    }
+
+
+    body.dark .pre-amount {
+      color: #aaa !important;
+    }
+
+
+    body.dark .actual-amount {
+      color: #6ee7a0 !important;
+    }
+
+
+    body.dark .menu-btn {
+      color: #777 !important;
+    }
+
+
+    body.dark .no-photo {
+      background: #16263f !important;
+    }
+
+
+    body.dark .photo {
+      background: #141a24 !important;
+    }
+
+
+    body.dark .checkbox {
+      background: #141a24 !important;
+
+      border-color: #555 !important;
+    }
+
+
+    body.dark .checkbox.checked {
+      background: #1E6FEB !important;
+
+      border-color: #1E6FEB !important;
+    }
+
+
+    body.dark .empty {
+      color: #888 !important;
+    }
+
+
+    body.dark .empty-title {
+      color: #aaa !important;
+    }
+
+
+    body.dark .modal-box {
+      background: #1c2330 !important;
+    }
+
+
+    body.dark .modal-title {
+      color: #e8e8e8 !important;
+    }
+
+
+    body.dark .modal-text {
+      color: #999 !important;
+    }
+
+
+    body.dark .amount-input {
+      background: #141a24 !important;
+
+      color: #eee !important;
+
+      border-color: #3a4356 !important;
+    }
+
+
+    body.dark .cancel-btn {
+      background: #2a3344 !important;
+
+      color: #ccc !important;
+    }
+
+
+    body.dark .bottom-nav {
+      background: #1c2330 !important;
+
+      border-top-color: #2a3344 !important;
+    }
+
+
+    body.dark .nav-item {
+      color: #888 !important;
+    }
+
+
+    body.dark .nav-item.active {
+      color: #7fb0f5 !important;
+    }
+
+
+    /* =========================
+       SCROLLBAR
+    ========================= */
+
+    .content::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .content::-webkit-scrollbar-thumb {
+      background: #ccc;
+
+      border-radius: 10px;
+    }
+
+    body.dark .content::-webkit-scrollbar-thumb {
+      background: #444;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <div class="header">
+
+    <div class="header-title">
+      ShopList
+    </div>
+
+    <button
+      class="add-btn"
+      type="button"
+      onclick="goToAdd()"
+    >
+      +
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       STATS
+  ========================= -->
+
+  <div class="stats">
+
+    <div class="stat">
+
+      <div class="stat-label">
+        Pre-Budget
+      </div>
+
+      <div
+        class="stat-value blue"
+        id="preBudgetTotal"
+      >
+        ₱0.00
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-label">
+        Actual Spent
+      </div>
+
+      <div
+        class="stat-value green"
+        id="actualSpentTotal"
+      >
+        ₱0.00
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-label">
+        Remaining
+      </div>
+
+      <div
+        class="stat-value orange"
+        id="remainingTotal"
+      >
+        ₱0.00
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       CONTENT
+  ========================= -->
+
+  <div class="content">
+
+
+    <!-- TABS -->
+
+    <div class="tabs">
+
+      <button
+        type="button"
+        class="tab active"
+        id="tabAll"
+        onclick="setFilter('all')"
+      >
+        All
+      </button>
+
+      <button
+        type="button"
+        class="tab"
+        id="tabPending"
+        onclick="setFilter('pending')"
+      >
+        Pending
+      </button>
+
+      <button
+        type="button"
+        class="tab"
+        id="tabCompleted"
+        onclick="setFilter('completed')"
+      >
+        Completed
+      </button>
+
+    </div>
+
+
+    <!-- ITEM LIST -->
+
+    <div
+      class="item-list"
+      id="itemList"
+    ></div>
+
+
+  </div>
+
+
+  <!-- =========================
+       EXPENSE MODAL
+  ========================= -->
+
+  <div
+    class="modal"
+    id="expenseModal"
+  >
+
+    <div class="modal-box">
+
+      <div class="modal-title">
+        Actual Expenditure
+      </div>
+
+      <div class="modal-text">
+        Enter the actual amount you spent for this item.
+      </div>
+
+      <input
+        type="number"
+        id="actualAmount"
+        class="amount-input"
+        placeholder="₱0.00"
+        min="0"
+        step="0.01"
+      >
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          onclick="closeModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="save-btn"
+          onclick="saveActual()"
+        >
+          Save
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       BOTTOM NAV
+  ========================= -->
+
+  <div class="bottom-nav">
+
+    <a
+      class="nav-item active"
+      href="home.html"
+    >
+
+      <span class="icon">
+        🏠
+      </span>
+
+      Home
+
+    </a>
+
+
+    <a
+      class="nav-item"
+      href="history.html"
+    >
+
+      <span class="icon">
+        🕐
+      </span>
+
+      History
+
+    </a>
+
+
+    <a
+      class="nav-item"
+      href="settings.html"
+    >
+
+      <span class="icon">
+        ⚙️
+      </span>
+
+      Settings
+
+    </a>
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* =========================
+       DATA
+    ========================= */
+
+    const STORAGE_KEY =
+      'shoplist_items';
+
+    let currentFilter = 'all';
+
+    let selectedItemId = null;
+
+
+    function getItems() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem(STORAGE_KEY) || '[]'
+        );
+
+      } catch (error) {
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveItems(items) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(items)
+      );
+
+    }
+
+
+    /* =========================
+       ADD ITEM
+    ========================= */
+
+    function goToAdd() {
+
+      location.href =
+        'add-item.html';
+
+    }
+
+
+    /* =========================
+       ITEM DETAILS
+    ========================= */
+
+    function openItemDetails(id) {
+
+      localStorage.setItem(
+        'selected_item_id',
+        String(id)
+      );
+
+      location.href =
+        'item-details.html?id=' + encodeURIComponent(id);
+
+    }
+
+
+    /* =========================
+       FILTER
+    ========================= */
+
+    function setFilter(filter) {
+
+      currentFilter = filter;
+
+
+      document
+        .getElementById('tabAll')
+        .classList.toggle(
+          'active',
+          filter === 'all'
+        );
+
+
+      document
+        .getElementById('tabPending')
+        .classList.toggle(
+          'active',
+          filter === 'pending'
+        );
+
+
+      document
+        .getElementById('tabCompleted')
+        .classList.toggle(
+          'active',
+          filter === 'completed'
+        );
+
+
+      renderList();
+
+    }
+
+
+    /* =========================
+       RENDER LIST
+    ========================= */
+
+    function renderList() {
+
+      const items =
+        getItems();
+
+      const listEl =
+        document.getElementById('itemList');
+
+
+      let filtered =
+        items;
+
+
+      if (currentFilter === 'pending') {
+
+        filtered =
+          items.filter(
+            item => item.status !== 'completed'
+          );
+
+      }
+
+
+      if (currentFilter === 'completed') {
+
+        filtered =
+          items.filter(
+            item => item.status === 'completed'
+          );
+
+      }
+
+
+      if (filtered.length === 0) {
+
+        let message =
+          'No items yet.';
+
+        if (currentFilter === 'pending') {
+
+          message =
+            'No pending items.';
+
+        }
+
+        if (currentFilter === 'completed') {
+
+          message =
+            'No completed items.';
+
+        }
+
+
+        listEl.innerHTML = `
+
+          <div class="empty">
+
+            <div class="empty-title">
+              ${message}
+            </div>
+
+            <div>
+              ${
+                currentFilter === 'all'
+                  ? 'Add an item to start your shopping list! 🛒'
+                  : 'Your list is empty for this filter.'
+              }
+            </div>
+
+          </div>
+
+        `;
+
+        updateStats();
+
+        return;
+
+      }
+
+
+      listEl.innerHTML =
+        filtered.map(
+          item => createItemHTML(item)
+        ).join('');
+
+
+      updateStats();
+
+    }
+
+
+    /* =========================
+       CREATE ITEM HTML
+    ========================= */
+
+    function createItemHTML(item) {
+
+      const completed =
+        item.status === 'completed';
+
+
+      const safeName =
+        escapeHtml(item.name || 'Unnamed Item');
+
+
+      const safeUnit =
+        escapeHtml(item.unit || '');
+
+
+      const qty =
+        Number(item.qty || 0);
+
+
+      const preBudget =
+        Number(item.preBudget || 0);
+
+
+      const actual =
+        item.actualSpent === null ||
+        item.actualSpent === undefined ||
+        item.actualSpent === ''
+          ? null
+          : Number(item.actualSpent);
+
+
+      const photo =
+        item.photo
+          ? `
+            <img
+              class="photo"
+              src="${item.photo}"
+              alt="${safeName}"
+            >
+          `
+          : `
+            <div class="no-photo">
+              🛒
+            </div>
+          `;
+
+
+      const actualHTML =
+        actual !== null
+          ? `
+            <span class="actual-amount">
+              Actual: ₱${actual.toFixed(2)}
+            </span>
+          `
+          : '';
+
+
+      return `
+
+        <div
+          class="item"
+          onclick="openItemDetails(${Number(item.id)})"
+        >
+
+
+          <div
+            class="checkbox ${completed ? 'checked' : ''}"
+            onclick="event.stopPropagation(); toggleItem(${Number(item.id)})"
+          >
+            ${completed ? '✓' : ''}
+          </div>
+
+
+          ${photo}
+
+
+          <div class="item-info">
+
+            <div class="item-name">
+              ${safeName}
+            </div>
+
+            <div class="item-qty">
+              ${qty} ${safeUnit}
+            </div>
+
+            <div class="amount-row">
+
+              <span class="pre-amount">
+                Budget: ₱${preBudget.toFixed(2)}
+              </span>
+
+              ${actualHTML}
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="menu-btn"
+            onclick="event.stopPropagation(); deleteItem(${Number(item.id)})"
+          >
+            ⋮
+          </button>
+
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =========================
+       UPDATE STATS
+    ========================= */
+
+    function updateStats() {
+
+      const items =
+        getItems();
+
+
+      const preBudget =
+        items.reduce(
+          (sum, item) =>
+            sum + Number(item.preBudget || 0),
+          0
+        );
+
+
+      const actualSpent =
+        items.reduce(
+          (sum, item) => {
+
+            if (
+              item.status === 'completed' &&
+              item.actualSpent !== null &&
+              item.actualSpent !== undefined &&
+              item.actualSpent !== ''
+            ) {
+
+              return sum +
+                Number(item.actualSpent || 0);
+
+            }
+
+            return sum;
+
+          },
+          0
+        );
+
+
+      const remaining =
+        preBudget - actualSpent;
+
+
+      document.getElementById(
+        'preBudgetTotal'
+      ).textContent =
+        '₱' + preBudget.toFixed(2);
+
+
+      document.getElementById(
+        'actualSpentTotal'
+      ).textContent =
+        '₱' + actualSpent.toFixed(2);
+
+
+      document.getElementById(
+        'remainingTotal'
+      ).textContent =
+        '₱' + remaining.toFixed(2);
+
+    }
+
+
+    /* =========================
+       TOGGLE ITEM
+    ========================= */
+
+    function toggleItem(id) {
+
+      const items =
+        getItems();
+
+
+      const index =
+        items.findIndex(
+          item =>
+            Number(item.id) === Number(id)
+        );
+
+
+      if (index === -1) {
+        return;
+      }
+
+
+      const item =
+        items[index];
+
+
+      if (item.status === 'completed') {
+
+        item.status =
+          'pending';
+
+        item.actualSpent =
+          null;
+
+        saveItems(items);
+
+        renderList();
+
+        return;
+
+      }
+
+
+      selectedItemId =
+        id;
+
+
+      document.getElementById(
+        'actualAmount'
+      ).value =
+        '';
+
+
+      document.getElementById(
+        'expenseModal'
+      ).classList.add('show');
+
+
+      setTimeout(
+        () => {
+
+          document
+            .getElementById('actualAmount')
+            .focus();
+
+        },
+        100
+      );
+
+    }
+
+
+    /* =========================
+       SAVE ACTUAL EXPENDITURE
+    ========================= */
+
+    function saveActual() {
+
+      if (selectedItemId === null) {
+        return;
+      }
+
+
+      const input =
+        document.getElementById(
+          'actualAmount'
+        );
+
+
+      const value =
+        input.value.trim();
+
+
+      if (value === '') {
+
+        alert(
+          'Please enter the actual amount.'
+        );
+
+        input.focus();
+
+        return;
+
+      }
+
+
+      const amount =
+        Number(value);
+
+
+      if (
+        isNaN(amount) ||
+        amount < 0
+      ) {
+
+        alert(
+          'Please enter a valid amount.'
+        );
+
+        input.focus();
+
+        return;
+
+      }
+
+
+      const items =
+        getItems();
+
+
+      const index =
+        items.findIndex(
+          item =>
+            Number(item.id) ===
+            Number(selectedItemId)
+        );
+
+
+      if (index === -1) {
+
+        closeModal();
+
+        return;
+
+      }
+
+
+      items[index].status =
+        'completed';
+
+
+      items[index].actualSpent =
+        amount;
+
+
+      saveItems(items);
+
+
+      closeModal();
+
+
+      renderList();
+
+    }
+
+
+    /* =========================
+       CLOSE MODAL
+    ========================= */
+
+    function closeModal() {
+
+      document
+        .getElementById('expenseModal')
+        .classList.remove('show');
+
+
+      document
+        .getElementById('actualAmount')
+        .value =
+        '';
+
+
+      selectedItemId =
+        null;
+
+    }
+
+
+    /* =========================
+       DELETE ITEM
+    ========================= */
+
+    function deleteItem(id) {
+
+      const items =
+        getItems();
+
+
+      const item =
+        items.find(
+          item =>
+            Number(item.id) ===
+            Number(id)
+        );
+
+
+      if (!item) {
+        return;
+      }
+
+
+      if (
+        !confirm(
+          `Delete "${item.name || 'this item'}"?`
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      const updated =
+        items.filter(
+          item =>
+            Number(item.id) !==
+            Number(id)
+        );
+
+
+      saveItems(updated);
+
+
+      renderList();
+
+    }
+
+
+    /* =========================
+       ESCAPE HTML
+    ========================= */
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+    }
+
+
+    /* =========================
+       DARK MODE
+    ========================= */
+
+    function applyHomeTheme() {
+
+      const dark =
+        localStorage.getItem(
+          'shoplist_dark'
+        ) === '1';
+
+
+      document.body.classList.toggle(
+        'dark',
+        dark
+      );
+
+    }
+
+
+    /* =========================
+       INITIAL LOAD
+    ========================= */
+
+    applyHomeTheme();
+
+    renderList();
+
+
+    /* =========================
+       RETURN TO HOME
+    ========================= */
+
+    window.addEventListener(
+      'pageshow',
+      function () {
+
+        applyHomeTheme();
+
+        renderList();
+
+      }
+    );
+
+
+    document.addEventListener(
+      'visibilitychange',
+      function () {
+
+        if (!document.hidden) {
+
+          applyHomeTheme();
+
+          renderList();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       MODAL BACKGROUND CLICK
+    ========================= */
+
+    document
+      .getElementById('expenseModal')
+      .addEventListener(
+        'click',
+        function (event) {
+
+          if (
+            event.target === this
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+
+    /* =========================
+       ENTER KEY IN MODAL
+    ========================= */
+
+    document
+      .getElementById('actualAmount')
+      .addEventListener(
+        'keydown',
+        function (event) {
+
+          if (
+            event.key === 'Enter'
+          ) {
+
+            saveActual();
+
+          }
+
+          if (
+            event.key === 'Escape'
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
+
+  </script>
+
+
+</body>
+
+</html>

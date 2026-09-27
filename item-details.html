@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ShopList - Item Details</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="js/theme.js"></script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+      max-width: 400px;
+      margin: auto;
+      min-height: 100vh;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease;
+    }
+
+
+    /* ================= HEADER ================= */
+
+    .header {
+      background: #1E6FEB;
+      color: white;
+      padding: 17px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-radius: 0 0 18px 18px;
+    }
+
+    .back-btn {
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+
+    /* ================= CONTENT ================= */
+
+    .content {
+      padding: 16px 14px 30px;
+    }
+
+
+    /* ================= PHOTO ================= */
+
+    .photo-section {
+      background: white;
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      margin-bottom: 14px;
+    }
+
+    .main-photo {
+      width: 100%;
+      height: 210px;
+      border-radius: 13px;
+      object-fit: cover;
+      display: block;
+      background: #eef3f8;
+    }
+
+    .no-photo {
+      width: 100%;
+      height: 210px;
+      border-radius: 13px;
+      background: #eef3f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 55px;
+    }
+
+    .photo-buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .photo-btn {
+      flex: 1;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 5px;
+      background: #eef4ff;
+      color: #1E6FEB;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .photo-btn:active {
+      transform: scale(0.98);
+    }
+
+
+    /* ================= DETAILS CARD ================= */
+
+    .details-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      margin-bottom: 14px;
+    }
+
+    .item-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 7px;
+      word-break: break-word;
+    }
+
+    .category {
+      display: inline-block;
+      background: #eaf2ff;
+      color: #1E6FEB;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-left: 4px;
+    }
+
+    .status.pending {
+      background: #fff4d6;
+      color: #b77900;
+    }
+
+    .status.completed {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .detail-value {
+      font-size: 13px;
+      font-weight: bold;
+      text-align: right;
+      word-break: break-word;
+    }
+
+
+    /* ================= NOTE ================= */
+
+    .note-box {
+      margin-top: 13px;
+      padding: 12px;
+      background: #f5f7fa;
+      border-radius: 10px;
+    }
+
+    .note-title {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .note-text {
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+
+    /* ================= ACTIONS ================= */
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .action-btn {
+      width: 100%;
+      border: none;
+      border-radius: 11px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #1E6FEB;
+      color: white;
+    }
+
+    .complete-btn {
+      background: #e8f7ed;
+      color: #15803d;
+    }
+
+    .duplicate-btn {
+      background: #eef3f8;
+      color: #444;
+    }
+
+    .delete-btn {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+
+    /* ================= EDIT MODAL ================= */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.48);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .edit-modal {
+      width: 100%;
+      max-width: 370px;
+      max-height: 92vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-title {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      outline: none;
+      background: white;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: #1E6FEB;
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .edit-photo-preview {
+      width: 100%;
+      height: 160px;
+      border-radius: 12px;
+      object-fit: cover;
+      display: block;
+      background: #eef3f8;
+      margin-bottom: 9px;
+    }
+
+    .edit-photo-empty {
+      width: 100%;
+      height: 160px;
+      border-radius: 12px;
+      background: #eef3f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 45px;
+      margin-bottom: 9px;
+    }
+
+    .edit-photo-buttons {
+      display: flex;
+      gap: 7px;
+    }
+
+    .small-photo-btn {
+      flex: 1;
+      border: none;
+      border-radius: 9px;
+      padding: 9px 4px;
+      background: #eef4ff;
+      color: #1E6FEB;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      border: none;
+      padding: 11px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cancel-btn {
+      background: #eee;
+      color: #555;
+    }
+
+    .save-btn {
+      background: #1E6FEB;
+      color: white;
+    }
+
+
+    /* ================= CAMERA MODAL ================= */
+
+    .camera-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: none;
+      flex-direction: column;
+      z-index: 3000;
+    }
+
+    .camera-overlay.show {
+      display: flex;
+    }
+
+    .camera-header {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      color: white;
+      background: #111;
+      flex-shrink: 0;
+    }
+
+    .camera-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .camera-close {
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .camera-preview-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: black;
+    }
+
+    #cameraVideo {
+      width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .camera-controls {
+      padding: 15px 12px 22px;
+      background: #111;
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .camera-control {
+      flex: 1;
+      border: none;
+      border-radius: 11px;
+      padding: 12px 5px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .switch-camera {
+      background: #333;
+      color: white;
+    }
+
+    .take-photo {
+      background: #1E6FEB;
+      color: white;
+    }
+
+
+    /* ================= HIDDEN INPUT ================= */
+
+    #galleryInput {
+      display: none;
+    }
+
+
+    /* ================================================= */
+    /* DARK MODE - COMPATIBLE WITH theme.js
+    /* ================================================= */
+
+    body.dark {
+      background: #12151c !important;
+      color: #eeeeee;
+    }
+
+    body.dark .photo-section,
+    body.dark .details-card {
+      background: #1c2330 !important;
+      color: #eeeeee;
+      box-shadow: none;
+    }
+
+    body.dark .main-photo {
+      background: #141a24;
+    }
+
+    body.dark .no-photo {
+      background: #16263f !important;
+      color: #aaaaaa;
+    }
+
+    body.dark .photo-btn {
+      background: #263b60 !important;
+      color: #8db8ff !important;
+    }
+
+    body.dark .item-title {
+      color: #ffffff !important;
+    }
+
+    body.dark .category {
+      background: #263a5c !important;
+      color: #8db8ff !important;
+    }
+
+    body.dark .status.pending {
+      background: #4a3a16 !important;
+      color: #ffd166 !important;
+    }
+
+    body.dark .status.completed {
+      background: #163b25 !important;
+      color: #6ee7a0 !important;
+    }
+
+    body.dark .detail-row {
+      border-bottom-color: #2a3344 !important;
+    }
+
+    body.dark .detail-label {
+      color: #999 !important;
+    }
+
+    body.dark .detail-value {
+      color: #eeeeee !important;
+    }
+
+    body.dark .note-box {
+      background: #141a24 !important;
+    }
+
+    body.dark .note-title {
+      color: #aaaaaa !important;
+    }
+
+    body.dark .note-text {
+      color: #eeeeee !important;
+    }
+
+    body.dark .complete-btn {
+      background: #173522 !important;
+      color: #7ee2a8 !important;
+    }
+
+    body.dark .duplicate-btn {
+      background: #2a3344 !important;
+      color: #eeeeee !important;
+    }
+
+    body.dark .delete-btn {
+      background: #421b1b !important;
+      color: #ff8f8f !important;
+    }
+
+    body.dark .edit-modal {
+      background: #1c2330 !important;
+      color: #eeeeee;
+    }
+
+    body.dark .modal-title {
+      color: #ffffff !important;
+    }
+
+    body.dark .form-label {
+      color: #dddddd !important;
+    }
+
+    body.dark .form-input,
+    body.dark .form-select,
+    body.dark .form-textarea {
+      background: #141a24 !important;
+      color: #ffffff !important;
+      border-color: #3a4356 !important;
+      color-scheme: dark;
+    }
+
+    body.dark .form-input::placeholder,
+    body.dark .form-textarea::placeholder {
+      color: #888888;
+    }
+
+    body.dark .form-input:focus,
+    body.dark .form-select:focus,
+    body.dark .form-textarea:focus {
+      border-color: #4d91ff;
+    }
+
+    body.dark .edit-photo-preview {
+      background: #141a24;
+    }
+
+    body.dark .edit-photo-empty {
+      background: #16263f !important;
+      color: #aaaaaa;
+    }
+
+    body.dark .small-photo-btn {
+      background: #263b60 !important;
+      color: #8db8ff !important;
+    }
+
+    body.dark .cancel-btn {
+      background: #2a3344 !important;
+      color: #eeeeee !important;
+    }
+
+    body.dark .save-btn {
+      background: #1E6FEB !important;
+      color: white;
+    }
+
+    body.dark .camera-overlay {
+      background: #000000;
+    }
+
+    body.dark .camera-header,
+    body.dark .camera-controls {
+      background: #111111;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+
+  <div class="header">
+
+    <button
+      class="back-btn"
+      onclick="goBack()">
+      ‹
+    </button>
+
+    <div class="header-title">
+      Item Details
+    </div>
+
+  </div>
+
+
+  <!-- ================= CONTENT ================= -->
+
+  <div class="content">
+
+    <!-- PHOTO -->
+
+    <div class="photo-section">
+
+      <div id="photoContainer"></div>
+
+    </div>
+
+
+    <!-- DETAILS -->
+
+    <div class="details-card">
+
+      <div
+        class="item-title"
+        id="itemName">
+        Item
+      </div>
+
+      <span
+        class="category"
+        id="itemCategory">
+        General
+      </span>
+
+      <span
+        class="status pending"
+        id="itemStatus">
+        Pending
+      </span>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Quantity
+        </div>
+
+        <div
+          class="detail-value"
+          id="itemQty">
+          -
+        </div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Unit
+        </div>
+
+        <div
+          class="detail-value"
+          id="itemUnit">
+          -
+        </div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Pre-Budget
+        </div>
+
+        <div
+          class="detail-value"
+          id="itemPreBudget">
+          ₱0.00
+        </div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Actual Spent
+        </div>
+
+        <div
+          class="detail-value"
+          id="itemActual">
+          -
+        </div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Remaining
+        </div>
+
+        <div
+          class="detail-value"
+          id="itemRemaining">
+          -
+        </div>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <div class="detail-label">
+          Created
+        </div>
+
+        <div
+          class="detail-value"
+          id="itemCreated">
+          -
+        </div>
+
+      </div>
+
+
+      <div class="note-box">
+
+        <div class="note-title">
+          Note
+        </div>
+
+        <div
+          class="note-text"
+          id="itemNote">
+          No note.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="actions">
+
+      <button
+        class="action-btn edit-btn"
+        onclick="openEditModal()">
+        ✏️ Edit Item
+      </button>
+
+
+      <button
+        class="action-btn complete-btn"
+        id="statusActionBtn"
+        onclick="toggleStatus()">
+        ✓ Mark Completed
+      </button>
+
+
+      <button
+        class="action-btn duplicate-btn"
+        onclick="duplicateItem()">
+        📋 Duplicate Item
+      </button>
+
+
+      <button
+        class="action-btn delete-btn"
+        onclick="deleteCurrentItem()">
+        🗑️ Delete Item
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- EDIT MODAL -->
+  <!-- ================================================= -->
+
+  <div
+    class="modal-overlay"
+    id="editModal">
+
+    <div class="edit-modal">
+
+      <div class="modal-title">
+        ✏️ Edit Item
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Photo
+        </label>
+
+        <div id="editPhotoContainer"></div>
+
+        <div class="edit-photo-buttons">
+
+          <button
+            type="button"
+            class="small-photo-btn"
+            onclick="openCamera()">
+            📷 Camera
+          </button>
+
+          <button
+            type="button"
+            class="small-photo-btn"
+            onclick="openGallery()">
+            🖼️ Gallery
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Item Name
+        </label>
+
+        <input
+          type="text"
+          id="editName"
+          class="form-input"
+          placeholder="Enter item name">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Category
+        </label>
+
+        <select
+          id="editCategory"
+          class="form-select">
+
+          <option value="General">General</option>
+          <option value="Food">Food</option>
+          <option value="Grocery">Grocery</option>
+          <option value="Beverages">Beverages</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Meat">Meat</option>
+          <option value="Fruits & Vegetables">Fruits & Vegetables</option>
+          <option value="Household">Household</option>
+          <option value="Personal Care">Personal Care</option>
+          <option value="School">School</option>
+          <option value="Other">Other</option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Quantity
+        </label>
+
+        <input
+          type="number"
+          id="editQty"
+          class="form-input"
+          min="0"
+          step="1"
+          placeholder="Enter quantity">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Unit
+        </label>
+
+        <input
+          type="text"
+          id="editUnit"
+          class="form-input"
+          placeholder="pcs, kg, pack, bottle...">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Pre-Budget Amount
+        </label>
+
+        <input
+          type="number"
+          id="editPreBudget"
+          class="form-input"
+          min="0"
+          step="0.01"
+          placeholder="0.00">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Actual Spent
+        </label>
+
+        <input
+          type="number"
+          id="editActualSpent"
+          class="form-input"
+          min="0"
+          step="0.01"
+          placeholder="0.00">
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Note
+        </label>
+
+        <textarea
+          id="editNote"
+          class="form-textarea"
+          placeholder="Add a note..."></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label class="form-label">
+          Status
+        </label>
+
+        <select
+          id="editStatus"
+          class="form-select">
+
+          <option value="pending">
+            Pending
+          </option>
+
+          <option value="completed">
+            Completed
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="modal-buttons">
+
+        <button
+          class="modal-btn cancel-btn"
+          onclick="closeEditModal()">
+          Cancel
+        </button>
+
+        <button
+          class="modal-btn save-btn"
+          onclick="saveEdit()">
+          Save Changes
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- CAMERA MODAL -->
+  <!-- ================================================= -->
+
+  <div
+    class="camera-overlay"
+    id="cameraOverlay">
+
+    <div class="camera-header">
+
+      <div class="camera-title">
+        Take Photo
+      </div>
+
+      <button
+        class="camera-close"
+        onclick="closeCamera()">
+        ✕
+      </button>
+
+    </div>
+
+
+    <div class="camera-preview-area">
+
+      <video
+        id="cameraVideo"
+        autoplay
+        playsinline>
+      </video>
+
+    </div>
+
+
+    <div class="camera-controls">
+
+      <button
+        class="camera-control switch-camera"
+        onclick="switchCamera()">
+        🔄 SWITCH
+      </button>
+
+      <button
+        class="camera-control take-photo"
+        onclick="takePhoto()">
+        📸 TAKE PHOTO
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- GALLERY -->
+
+  <input
+    type="file"
+    id="galleryInput"
+    accept="image/*">
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script>
+
+    const STORAGE_KEY = 'shoplist_items';
+
+    let currentItem = null;
+    let currentItemId = null;
+    let editedPhoto = null;
+
+    let cameraStream = null;
+    let usingFrontCamera = false;
+
+
+    /* ================================================= */
+    /* GET ITEM ID */
+    /* ================================================= */
+
+    function getItemId() {
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      const id =
+        params.get('id');
+
+      if (id) {
+        return id;
+      }
+
+      return localStorage.getItem(
+        'selected_item_id'
+      );
+
+    }
+
+
+    /* ================================================= */
+    /* GET ITEMS */
+    /* ================================================= */
+
+    function getItems() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem(
+            STORAGE_KEY
+          ) || '[]'
+        );
+
+      } catch (error) {
+
+        console.error(
+          'Error reading items:',
+          error
+        );
+
+        return [];
+
+      }
+
+    }
+
+
+    /* ================================================= */
+    /* SAVE ITEMS */
+    /* ================================================= */
+
+    function saveItems(items) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(items)
+      );
+
+    }
+
+
+    /* ================================================= */
+    /* LOAD ITEM */
+    /* ================================================= */
+
+    function loadItem() {
+
+      currentItemId =
+        getItemId();
+
+      if (!currentItemId) {
+
+        showItemNotFound();
+
+        return;
+
+      }
+
+      const items =
+        getItems();
+
+      currentItem =
+        items.find(
+          item =>
+            String(item.id) ===
+            String(currentItemId)
+        );
+
+      if (!currentItem) {
+
+        showItemNotFound();
+
+        return;
+
+      }
+
+      editedPhoto =
+        currentItem.photo || null;
+
+      renderItem();
+
+    }
+
+
+    /* ================================================= */
+    /* ITEM NOT FOUND */
+    /* ================================================= */
+
+    function showItemNotFound() {
+
+      document.getElementById(
+        'itemName'
+      ).textContent =
+        'Item Not Found';
+
+      document.getElementById(
+        'itemNote'
+      ).textContent =
+        'This item could not be found.';
+
+    }
+
+
+    /* ================================================= */
+    /* RENDER ITEM */
+    /* ================================================= */
+
+    function renderItem() {
+
+      if (!currentItem) {
+        return;
+      }
+
+      document.getElementById(
+        'itemName'
+      ).textContent =
+        currentItem.name ||
+        'Unnamed Item';
+
+
+      document.getElementById(
+        'itemCategory'
+      ).textContent =
+        currentItem.category ||
+        'General';
+
+
+      const statusElement =
+        document.getElementById(
+          'itemStatus'
+        );
+
+
+      const isCompleted =
+        currentItem.status ===
+        'completed';
+
+
+      statusElement.textContent =
+        isCompleted
+          ? 'Completed'
+          : 'Pending';
+
+
+      statusElement.className =
+        'status ' +
+        (
+          isCompleted
+            ? 'completed'
+            : 'pending'
+        );
+
+
+      document.getElementById(
+        'itemQty'
+      ).textContent =
+        Number(
+          currentItem.qty || 0
+        );
+
+
+      document.getElementById(
+        'itemUnit'
+      ).textContent =
+        currentItem.unit ||
+        '-';
+
+
+      const preBudget =
+        Number(
+          currentItem.preBudget || 0
+        );
+
+
+      document.getElementById(
+        'itemPreBudget'
+      ).textContent =
+        '₱' +
+        preBudget.toFixed(2);
+
+
+      const actual =
+        currentItem.actualSpent;
+
+
+      document.getElementById(
+        'itemActual'
+      ).textContent =
+        actual != null
+          ? '₱' +
+            Number(actual).toFixed(2)
+          : '-';
+
+
+      if (actual != null) {
+
+        const remaining =
+          preBudget -
+          Number(actual);
+
+        document.getElementById(
+          'itemRemaining'
+        ).textContent =
+          '₱' +
+          remaining.toFixed(2);
+
+      } else {
+
+        document.getElementById(
+          'itemRemaining'
+        ).textContent =
+          '₱' +
+          preBudget.toFixed(2);
+
+      }
+
+
+      let createdText = '-';
+
+
+      if (currentItem.createdAt) {
+
+        const date =
+          new Date(
+            currentItem.createdAt
+          );
+
+
+        if (
+          !isNaN(
+            date.getTime()
+          )
+        ) {
+
+          createdText =
+            date.toLocaleDateString(
+              'en-PH',
+              {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+              }
+            );
+
+        }
+
+      } else if (
+        currentItem.createdDate
+      ) {
+
+        createdText =
+          currentItem.createdDate;
+
+      }
+
+
+      document.getElementById(
+        'itemCreated'
+      ).textContent =
+        createdText;
+
+
+      document.getElementById(
+        'itemNote'
+      ).textContent =
+        currentItem.note ||
+        'No note.';
+
+
+      renderMainPhoto();
+
+      updateStatusButton();
+
+    }
+
+
+    /* ================================================= */
+    /* MAIN PHOTO */
+    /* ================================================= */
+
+    function renderMainPhoto() {
+
+      const container =
+        document.getElementById(
+          'photoContainer'
+        );
+
+
+      if (
+        currentItem &&
+        currentItem.photo
+      ) {
+
+        container.innerHTML = `
+
+          <img
+            class="main-photo"
+            src="${currentItem.photo}"
+            alt="Item Photo"
+          >
+
+          <div class="photo-buttons">
+
+            <button
+              class="photo-btn"
+              onclick="openEditModal()">
+              ✏️ Change Photo
+            </button>
+
+          </div>
+
+        `;
+
+      } else {
+
+        container.innerHTML = `
+
+          <div class="no-photo">
+            🛒
+          </div>
+
+          <div class="photo-buttons">
+
+            <button
+              class="photo-btn"
+              onclick="openEditModal()">
+              📷 Add Photo
+            </button>
+
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /* ================================================= */
+    /* STATUS BUTTON */
+    /* ================================================= */
+
+    function updateStatusButton() {
+
+      const button =
+        document.getElementById(
+          'statusActionBtn'
+        );
+
+
+      if (
+        currentItem.status ===
+        'completed'
+      ) {
+
+        button.textContent =
+          '↩️ Mark Pending';
+
+      } else {
+
+        button.textContent =
+          '✓ Mark Completed';
+
+      }
+
+    }
+
+
+    /* ================================================= */
+    /* OPEN EDIT MODAL */
+    /* ================================================= */
+
+    function openEditModal() {
+
+      if (!currentItem) {
+        return;
+      }
+
+
+      editedPhoto =
+        currentItem.photo ||
+        null;
+
+
+      document.getElementById(
+        'editName'
+      ).value =
+        currentItem.name || '';
+
+
+      document.getElementById(
+        'editCategory'
+      ).value =
+        currentItem.category ||
+        'General';
+
+
+      document.getElementById(
+        'editQty'
+      ).value =
+        currentItem.qty ?? '';
+
+
+      document.getElementById(
+        'editUnit'
+      ).value =
+        currentItem.unit || '';
+
+
+      document.getElementById(
+        'editPreBudget'
+      ).value =
+        currentItem.preBudget ?? '';
+
+
+      document.getElementById(
+        'editActualSpent'
+      ).value =
+        currentItem.actualSpent != null
+          ? currentItem.actualSpent
+          : '';
+
+
+      document.getElementById(
+        'editNote'
+      ).value =
+        currentItem.note || '';
+
+
+      document.getElementById(
+        'editStatus'
+      ).value =
+        currentItem.status ||
+        'pending';
+
+
+      renderEditPhoto();
+
+
+      document.getElementById(
+        'editModal'
+      ).classList.add('show');
+
+    }
+
+
+    /* ================================================= */
+    /* CLOSE EDIT MODAL */
+    /* ================================================= */
+
+    function closeEditModal() {
+
+      document.getElementById(
+        'editModal'
+      ).classList.remove('show');
+
+    }
+
+
+    /* ================================================= */
+    /* EDIT PHOTO */
+    /* ================================================= */
+
+    function renderEditPhoto() {
+
+      const container =
+        document.getElementById(
+          'editPhotoContainer'
+        );
+
+
+      if (editedPhoto) {
+
+        container.innerHTML = `
+
+          <img
+            class="edit-photo-preview"
+            src="${editedPhoto}"
+            alt="Photo Preview"
+          >
+
+        `;
+
+      } else {
+
+        container.innerHTML = `
+
+          <div class="edit-photo-empty">
+            🛒
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    /* ================================================= */
+    /* CAMERA */
+    /* ================================================= */
+
+    async function openCamera() {
+
+      stopCamera();
+
+
+      if (
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+      ) {
+
+        alert(
+          'Camera is not supported by this browser.'
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        cameraStream =
+          await navigator.mediaDevices.getUserMedia({
+
+            video: {
+
+              facingMode:
+                usingFrontCamera
+                  ? 'user'
+                  : 'environment',
+
+              width: {
+                ideal: 1280
+              },
+
+              height: {
+                ideal: 720
+              }
+
+            },
+
+            audio: false
+
+          });
+
+
+        const video =
+          document.getElementById(
+            'cameraVideo'
+          );
+
+
+        video.srcObject =
+          cameraStream;
+
+
+        video.style.transform =
+          usingFrontCamera
+            ? 'scaleX(-1)'
+            : 'scaleX(1)';
+
+
+        document.getElementById(
+          'cameraOverlay'
+        ).classList.add('show');
+
+
+        await video.play();
+
+
+      } catch (error) {
+
+        console.error(
+          'Camera error:',
+          error
+        );
+
+
+        alert(
+          'Unable to open the camera. Please allow camera permission and try again.'
+        );
+
+      }
+
+    }
+
+
+    /* ================================================= */
+    /* SWITCH CAMERA */
+    /* ================================================= */
+
+    async function switchCamera() {
+
+      usingFrontCamera =
+        !usingFrontCamera;
+
+      await openCamera();
+
+    }
+
+
+    /* ================================================= */
+    /* TAKE PHOTO */
+    /* ================================================= */
+
+    function takePhoto() {
+
+      const video =
+        document.getElementById(
+          'cameraVideo'
+        );
+
+
+      if (
+        !video.videoWidth ||
+        !video.videoHeight
+      ) {
+
+        alert(
+          'Camera is not ready yet.'
+        );
+
+        return;
+
+      }
+
+
+      const canvas =
+        document.createElement(
+          'canvas'
+        );
+
+
+      const maxWidth = 700;
+
+
+      let width =
+        video.videoWidth;
+
+
+      let height =
+        video.videoHeight;
+
+
+      if (width > maxWidth) {
+
+        height =
+          height *
+          (maxWidth / width);
+
+        width =
+          maxWidth;
+
+      }
+
+
+      canvas.width =
+        width;
+
+      canvas.height =
+        height;
+
+
+      const context =
+        canvas.getContext('2d');
+
+
+      if (usingFrontCamera) {
+
+        context.translate(
+          width,
+          0
+        );
+
+        context.scale(
+          -1,
+          1
+        );
+
+      }
+
+
+      context.drawImage(
+        video,
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      editedPhoto =
+        canvas.toDataURL(
+          'image/jpeg',
+          0.82
+        );
+
+
+      renderEditPhoto();
+
+      closeCamera();
+
+    }
+
+
+    /* ================================================= */
+    /* CLOSE CAMERA */
+    /* ================================================= */
+
+    function closeCamera() {
+
+      stopCamera();
+
+      document.getElementById(
+        'cameraOverlay'
+      ).classList.remove('show');
+
+    }
+
+
+    /* ================================================= */
+    /* STOP CAMERA */
+    /* ================================================= */
+
+    function stopCamera() {
+
+      if (cameraStream) {
+
+        cameraStream
+          .getTracks()
+          .forEach(
+            track =>
+              track.stop()
+          );
+
+        cameraStream =
+          null;
+
+      }
+
+
+      const video =
+        document.getElementById(
+          'cameraVideo'
+        );
+
+
+      if (video) {
+
+        video.srcObject =
+          null;
+
+      }
+
+    }
+
+
+    /* ================================================= */
+    /* GALLERY */
+    /* ================================================= */
+
+    function openGallery() {
+
+      document.getElementById(
+        'galleryInput'
+      ).click();
+
+    }
+
+
+    document.getElementById(
+      'galleryInput'
+    ).addEventListener(
+      'change',
+      function(event) {
+
+        const file =
+          event.target.files[0];
+
+
+        if (!file) {
+          return;
+        }
+
+
+        if (
+          !file.type.startsWith(
+            'image/'
+          )
+        ) {
+
+          alert(
+            'Please select an image file.'
+          );
+
+          return;
+
+        }
+
+
+        const reader =
+          new FileReader();
+
+
+        reader.onload =
+          function(e) {
+
+            const image =
+              new Image();
+
+
+            image.onload =
+              function() {
+
+                const canvas =
+                  document.createElement(
+                    'canvas'
+                  );
+
+
+                const maxWidth =
+                  700;
+
+
+                let width =
+                  image.width;
+
+
+                let height =
+                  image.height;
+
+
+                if (
+                  width > maxWidth
+                ) {
+
+                  height =
+                    height *
+                    (
+                      maxWidth /
+                      width
+                    );
+
+                  width =
+                    maxWidth;
+
+                }
+
+
+                canvas.width =
+                  width;
+
+                canvas.height =
+                  height;
+
+
+                const context =
+                  canvas.getContext(
+                    '2d'
+                  );
+
+
+                context.drawImage(
+                  image,
+                  0,
+                  0,
+                  width,
+                  height
+                );
+
+
+                editedPhoto =
+                  canvas.toDataURL(
+                    'image/jpeg',
+                    0.82
+                  );
+
+
+                renderEditPhoto();
+
+              };
+
+
+            image.src =
+              e.target.result;
+
+          };
+
+
+        reader.readAsDataURL(file);
+
+        event.target.value = '';
+
+      }
+    );
+
+
+    /* ================================================= */
+    /* SAVE EDIT */
+    /* ================================================= */
+
+    function saveEdit() {
+
+      if (!currentItem) {
+        return;
+      }
+
+
+      const name =
+        document.getElementById(
+          'editName'
+        ).value.trim();
+
+
+      const category =
+        document.getElementById(
+          'editCategory'
+        ).value;
+
+
+      const qtyValue =
+        document.getElementById(
+          'editQty'
+        ).value;
+
+
+      const unit =
+        document.getElementById(
+          'editUnit'
+        ).value.trim();
+
+
+      const preBudgetValue =
+        document.getElementById(
+          'editPreBudget'
+        ).value;
+
+
+      const actualValue =
+        document.getElementById(
+          'editActualSpent'
+        ).value;
+
+
+      const note =
+        document.getElementById(
+          'editNote'
+        ).value;
+
+
+      const status =
+        document.getElementById(
+          'editStatus'
+        ).value;
+
+
+      if (!name) {
+
+        alert(
+          'Please enter the item name.'
+        );
+
+        return;
+
+      }
+
+
+      if (
+        qtyValue === '' ||
+        Number(qtyValue) < 0
+      ) {
+
+        alert(
+          'Please enter a valid quantity.'
+        );
+
+        return;
+
+      }
+
+
+      if (
+        preBudgetValue === '' ||
+        Number(preBudgetValue) < 0
+      ) {
+
+        alert(
+          'Please enter a valid pre-budget amount.'
+        );
+
+        return;
+
+      }
+
+
+      if (
+        actualValue !== '' &&
+        Number(actualValue) < 0
+      ) {
+
+        alert(
+          'Please enter a valid actual amount.'
+        );
+
+        return;
+
+      }
+
+
+      const items =
+        getItems();
+
+
+      const index =
+        items.findIndex(
+          item =>
+            String(item.id) ===
+            String(currentItemId)
+        );
+
+
+      if (index === -1) {
+
+        alert(
+          'Item could not be found.'
+        );
+
+        return;
+
+      }
+
+
+      items[index].name =
+        name;
+
+
+      items[index].category =
+        category ||
+        'General';
+
+
+      items[index].qty =
+        Number(qtyValue);
+
+
+      items[index].unit =
+        unit;
+
+
+      items[index].preBudget =
+        Number(preBudgetValue);
+
+
+      items[index].actualSpent =
+        actualValue === ''
+          ? null
+          : Number(actualValue);
+
+
+      items[index].note =
+        note;
+
+
+      items[index].status =
+        status ||
+        'pending';
+
+
+      items[index].photo =
+        editedPhoto || null;
+
+
+      saveItems(items);
+
+
+      currentItem =
+        items[index];
+
+
+      closeEditModal();
+
+      renderItem();
+
+
+      alert(
+        'Item updated successfully!'
+      );
+
+    }
+
+
+    /* ================================================= */
+    /* TOGGLE STATUS */
+    /* ================================================= */
+
+    function toggleStatus() {
+
+      if (!currentItem) {
+        return;
+      }
+
+
+      const items =
+        getItems();
+
+
+      const index =
+        items.findIndex(
+          item =>
+            String(item.id) ===
+            String(currentItemId)
+        );
+
+
+      if (index === -1) {
+        return;
+      }
+
+
+      if (
+        items[index].status ===
+        'completed'
+      ) {
+
+        items[index].status =
+          'pending';
+
+        items[index].actualSpent =
+          null;
+
+      } else {
+
+        const amount =
+          prompt(
+            'Enter actual amount spent:',
+            items[index].preBudget || ''
+          );
+
+
+        if (amount === null) {
+          return;
+        }
+
+
+        if (
+          amount.trim() === '' ||
+          isNaN(Number(amount)) ||
+          Number(amount) < 0
+        ) {
+
+          alert(
+            'Please enter a valid amount.'
+          );
+
+          return;
+
+        }
+
+
+        items[index].status =
+          'completed';
+
+
+        items[index].actualSpent =
+          Number(amount);
+
+      }
+
+
+      saveItems(items);
+
+
+      currentItem =
+        items[index];
+
+
+      renderItem();
+
+    }
+
+
+    /* ================================================= */
+    /* DUPLICATE */
+    /* ================================================= */
+
+    function duplicateItem() {
+
+      if (!currentItem) {
+        return;
+      }
+
+
+      const items =
+        getItems();
+
+
+      const duplicate = {
+
+        ...currentItem,
+
+        id: Date.now(),
+
+        status: 'pending',
+
+        actualSpent: null,
+
+        createdAt:
+          new Date().toISOString(),
+
+        createdDate:
+          new Date().toLocaleDateString(
+            'en-PH'
+          )
+
+      };
+
+
+      items.push(
+        duplicate
+      );
+
+
+      saveItems(items);
+
+
+      localStorage.setItem(
+        'selected_item_id',
+        String(duplicate.id)
+      );
+
+
+      window.location.href =
+        'item-details.html?id=' +
+        encodeURIComponent(
+          duplicate.id
+        );
+
+    }
+
+
+    /* ================================================= */
+    /* DELETE */
+    /* ================================================= */
+
+    function deleteCurrentItem() {
+
+      if (!currentItem) {
+        return;
+      }
+
+
+      const confirmed =
+        confirm(
+          `Delete "${currentItem.name}" from your shopping list?`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      const items =
+        getItems();
+
+
+      const updated =
+        items.filter(
+          item =>
+            String(item.id) !==
+            String(currentItemId)
+        );
+
+
+      saveItems(updated);
+
+
+      localStorage.removeItem(
+        'selected_item_id'
+      );
+
+
+      window.location.href =
+        'home.html';
+
+    }
+
+
+    /* ================================================= */
+    /* BACK */
+    /* ================================================= */
+
+    function goBack() {
+
+      stopCamera();
+
+      window.location.href =
+        'home.html';
+
+    }
+
+
+    /* ================================================= */
+    /* CLOSE MODAL OUTSIDE */
+    /* ================================================= */
+
+    document.getElementById(
+      'editModal'
+    ).addEventListener(
+      'click',
+      function(event) {
+
+        if (
+          event.target === this
+        ) {
+
+          closeEditModal();
+
+        }
+
+      }
+    );
+
+
+    /* ================================================= */
+    /* DARK MODE
+       Uses the SAME setting as settings.html
+    ================================================= */
+
+    function applySavedTheme() {
+
+      const dark =
+        localStorage.getItem(
+          'shoplist_dark'
+        ) === '1';
+
+
+      document.body.classList.toggle(
+        'dark',
+        dark
+      );
+
+    }
+
+
+    /* ================================================= */
+    /* INITIAL LOAD */
+    /* ================================================= */
+
+    applySavedTheme();
+
+    loadItem();
+
+
+    /* ================================================= */
+    /* REFRESH WHEN RETURNING
+    ================================================= */
+
+    window.addEventListener(
+      'pageshow',
+      function() {
+
+        applySavedTheme();
+
+        loadItem();
+
+      }
+    );
+
+
+    document.addEventListener(
+      'visibilitychange',
+      function() {
+
+        if (!document.hidden) {
+
+          applySavedTheme();
+
+        }
+
+      }
+    );
+
+
+    /* ================================================= */
+    /* STOP CAMERA */
+    /* ================================================= */
+
+    window.addEventListener(
+      'beforeunload',
+      function() {
+
+        stopCamera();
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

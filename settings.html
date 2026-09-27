@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ShopList - Settings</title>
+
+  <!-- Cache-busting para siguradong bagong theme.js ang mabasa -->
+  <script src="js/theme.js?v=2"></script>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #f5f7fa;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+
+    /* ===== HEADER ===== */
+
+    .header {
+      background: #1E6FEB;
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+
+    /* ===== SETTINGS MENU ===== */
+
+    .menu {
+      padding: 12px;
+      flex: 1;
+      overflow-y: auto;
+      transition: background 0.25s ease;
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 12px;
+      height: 64px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.15s,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .menu-item:active {
+      transform: scale(0.98);
+    }
+
+
+    /* ===== TEXT ===== */
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      font-size: 15px;
+      font-weight: 600;
+
+      color: #333;
+
+      transition: color 0.25s ease;
+    }
+
+    .menu-icon {
+      font-size: 20px;
+      width: 28px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chevron {
+      color: #bbb;
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+
+    /* ===== SWITCH ===== */
+
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      display: inline-block;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+
+      background: #ccc;
+
+      border-radius: 30px;
+
+      transition: 0.3s;
+
+      cursor: pointer;
+    }
+
+    .slider:before {
+      content: "";
+
+      position: absolute;
+
+      width: 20px;
+      height: 20px;
+
+      border-radius: 50%;
+
+      background: white;
+
+      bottom: 3px;
+      left: 3px;
+
+      transition: 0.3s;
+
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .switch input:checked + .slider {
+      background: #1E6FEB;
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+
+    /* ===== BOTTOM NAV ===== */
+
+    .bottom-nav {
+      background: white;
+
+      border-top: 1px solid #eee;
+
+      display: flex;
+
+      padding: 8px 0 12px;
+
+      flex-shrink: 0;
+
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .nav-item {
+      flex: 1;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      color: #999;
+
+      cursor: pointer;
+
+      text-decoration: none;
+    }
+
+    .nav-item .icon {
+      font-size: 20px;
+
+      display: block;
+
+      margin-bottom: 2px;
+    }
+
+    .nav-item.active {
+      color: #1E6FEB;
+
+      font-weight: 700;
+    }
+
+
+    /* =================================================
+       REAL DARK MODE
+    ================================================= */
+
+    body.dark {
+      background: #12151c !important;
+      color: #e8e8e8 !important;
+    }
+
+    body.dark .menu {
+      background: #12151c !important;
+    }
+
+    body.dark .menu-item {
+      background: #1c2330 !important;
+
+      box-shadow: none !important;
+    }
+
+    body.dark .menu-left {
+      color: #e8e8e8 !important;
+    }
+
+    body.dark .chevron {
+      color: #777 !important;
+    }
+
+    body.dark .bottom-nav {
+      background: #1c2330 !important;
+
+      border-top-color: #2a3344 !important;
+    }
+
+    body.dark .nav-item {
+      color: #888 !important;
+    }
+
+    body.dark .nav-item.active {
+      color: #7fb0f5 !important;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <h1>Settings</h1>
+
+  </div>
+
+
+  <!-- SETTINGS -->
+
+  <div class="menu">
+
+
+    <!-- DARK MODE -->
+
+    <div class="menu-item">
+
+      <div class="menu-left">
+
+        <span class="menu-icon">
+          🌙
+        </span>
+
+        <span>
+          Dark Mode
+        </span>
+
+      </div>
+
+
+      <label
+        class="switch"
+        onclick="event.stopPropagation()"
+      >
+
+        <input
+          type="checkbox"
+          id="darkToggle"
+        >
+
+        <span class="slider"></span>
+
+      </label>
+
+    </div>
+
+
+    <!-- BACKUP -->
+
+    <div
+      class="menu-item"
+      onclick="backupData()"
+    >
+
+      <div class="menu-left">
+
+        <span class="menu-icon">
+          💾
+        </span>
+
+        <span>
+          Backup (Local)
+        </span>
+
+      </div>
+
+      <span class="chevron">
+        ›
+      </span>
+
+    </div>
+
+
+    <!-- CLEAR ALL -->
+
+    <div
+      class="menu-item"
+      onclick="clearAll()"
+    >
+
+      <div class="menu-left">
+
+        <span class="menu-icon">
+          🗑️
+        </span>
+
+        <span>
+          Clear All Lists
+        </span>
+
+      </div>
+
+      <span class="chevron">
+        ›
+      </span>
+
+    </div>
+
+
+    <!-- ABOUT -->
+
+    <div
+      class="menu-item"
+      onclick="location.href='about.html'"
+    >
+
+      <div class="menu-left">
+
+        <span class="menu-icon">
+          ℹ️
+        </span>
+
+        <span>
+          About ShopList
+        </span>
+
+      </div>
+
+      <span class="chevron">
+        ›
+      </span>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- BOTTOM NAV -->
+
+  <div class="bottom-nav">
+
+    <a
+      class="nav-item"
+      href="home.html"
+    >
+      <span class="icon">🏠</span>
+      Home
+    </a>
+
+    <a
+      class="nav-item"
+      href="history.html"
+    >
+      <span class="icon">🕐</span>
+      History
+    </a>
+
+    <a
+      class="nav-item active"
+      href="settings.html"
+    >
+      <span class="icon">⚙️</span>
+      Settings
+    </a>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       APPLY DARK MODE
+    ========================= */
+
+    function applySettingsTheme() {
+
+      const dark =
+        localStorage.getItem('shoplist_dark') === '1';
+
+      document.body.classList.toggle(
+        'dark',
+        dark
+      );
+
+      const toggle =
+        document.getElementById('darkToggle');
+
+      if (toggle) {
+        toggle.checked = dark;
+      }
+
+    }
+
+
+    /* =========================
+       TOGGLE DARK MODE
+    ========================= */
+
+    document
+      .getElementById('darkToggle')
+      .addEventListener('change', function () {
+
+        const dark = this.checked;
+
+        localStorage.setItem(
+          'shoplist_dark',
+          dark ? '1' : '0'
+        );
+
+        applySettingsTheme();
+
+      });
+
+
+    /* =========================
+       BACKUP
+    ========================= */
+
+    function backupData() {
+
+      const data =
+        localStorage.getItem(
+          'shoplist_items'
+        ) || '[]';
+
+      const blob =
+        new Blob(
+          [data],
+          {
+            type: 'application/json'
+          }
+        );
+
+      const url =
+        URL.createObjectURL(blob);
+
+      const a =
+        document.createElement('a');
+
+      a.href = url;
+
+      a.download =
+        'shoplist-backup-' +
+        new Date()
+          .toISOString()
+          .slice(0, 10) +
+        '.json';
+
+      document.body.appendChild(a);
+
+      a.click();
+
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+
+      alert(
+        'Backup downloaded! ✅'
+      );
+
+    }
+
+
+    /* =========================
+       CLEAR ALL
+    ========================= */
+
+    function clearAll() {
+
+      if (
+        confirm(
+          'Clear ALL lists? This cannot be undone!'
+        )
+      ) {
+
+        localStorage.removeItem(
+          'shoplist_items'
+        );
+
+        alert(
+          'All lists cleared.'
+        );
+
+      }
+
+    }
+
+
+    /* =========================
+       INITIAL LOAD
+    ========================= */
+
+    applySettingsTheme();
+
+
+    /* =========================
+       WHEN RETURNING TO PAGE
+    ========================= */
+
+    window.addEventListener(
+      'pageshow',
+      applySettingsTheme
+    );
+
+  </script>
+
+
+</body>
+
+</html>

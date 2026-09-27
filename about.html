@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ShopList - About</title>
+
+  <script src="js/theme.js"></script>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      min-height: 100vh;
+
+      margin: 0 auto;
+
+      background: #f5f7fa;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease;
+    }
+
+
+    /* ================= HEADER ================= */
+
+    .header {
+      background: #1E6FEB;
+      color: white;
+
+      padding: 16px 20px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+
+      color: white;
+
+      font-size: 22px;
+
+      cursor: pointer;
+
+      width: 30px;
+      height: 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+
+    /* ================= CONTENT ================= */
+
+    .content {
+      flex: 1;
+
+      min-height: 0;
+
+      padding: 16px;
+
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      -webkit-overflow-scrolling: touch;
+
+      padding-bottom: 40px;
+
+      scrollbar-width: thin;
+    }
+
+
+    /* ================= SECTION TITLE ================= */
+
+    .section-title {
+      font-size: 12px;
+
+      font-weight: 700;
+
+      color: #888;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+
+      margin: 6px 4px 10px;
+
+      transition: color 0.25s ease;
+    }
+
+
+    /* ================= CARD ================= */
+
+    .card {
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 14px;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.06);
+
+      transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+
+    /* ================= PROFILE ================= */
+
+    .profile {
+      text-align: center;
+
+      padding: 26px 20px;
+    }
+
+    .avatar {
+      width: 84px;
+      height: 84px;
+
+      border-radius: 50%;
+
+      background: #EAF3FF;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 40px;
+
+      margin: 0 auto 14px;
+
+      border: 3px solid #d0e3fc;
+
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .profile-name {
+      font-size: 19px;
+
+      font-weight: bold;
+
+      color: #222;
+
+      transition: color 0.25s ease;
+    }
+
+    .profile-sub {
+      font-size: 13px;
+
+      color: #1E6FEB;
+
+      font-weight: 600;
+
+      margin-top: 4px;
+    }
+
+
+    /* ================= PROGRAM INFORMATION ================= */
+
+    .info-row {
+      display: flex;
+
+      padding: 11px 0;
+
+      border-bottom:
+        1px solid #f0f0f0;
+
+      transition:
+        border-color 0.25s ease;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 13px;
+
+      color: #888;
+
+      width: 110px;
+
+      flex-shrink: 0;
+
+      transition: color 0.25s ease;
+    }
+
+    .info-value {
+      font-size: 13.5px;
+
+      color: #333;
+
+      font-weight: 600;
+
+      flex: 1;
+
+      transition: color 0.25s ease;
+    }
+
+    .vision-text {
+      font-size: 13px;
+
+      color: #555;
+
+      line-height: 1.6;
+
+      font-weight: 400;
+
+      font-style: italic;
+
+      transition: color 0.25s ease;
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    .footer {
+      text-align: center;
+
+      padding: 16px;
+
+      margin-top: 4px;
+
+      margin-bottom: 10px;
+
+      font-size: 12px;
+
+      color: #aaa;
+
+      transition: color 0.25s ease;
+    }
+
+    .footer b {
+      color: #1E6FEB;
+    }
+
+
+    /* ================= BOTTOM NAV ================= */
+
+    .bottom-nav {
+      background: white;
+
+      border-top:
+        1px solid #eee;
+
+      display: flex;
+
+      padding: 8px 0 12px;
+
+      flex-shrink: 0;
+
+      position: relative;
+
+      z-index: 10;
+
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .nav-item {
+      flex: 1;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      color: #999;
+
+      cursor: pointer;
+
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .nav-item .icon {
+      font-size: 20px;
+
+      display: block;
+
+      margin-bottom: 2px;
+    }
+
+    .nav-item.active {
+      color: #1E6FEB;
+
+      font-weight: 700;
+    }
+
+
+    /* =================================================
+       DARK MODE
+    ================================================= */
+
+    body.dark {
+      background: #101418 !important;
+      color: #f2f2f2;
+    }
+
+    body.dark .content {
+      background: #101418;
+    }
+
+    body.dark .section-title {
+      color: #888 !important;
+    }
+
+    body.dark .card {
+      background: #1b2027 !important;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    body.dark .avatar {
+      background: #263a5c !important;
+
+      border-color: #3b5f91 !important;
+    }
+
+    body.dark .profile-name {
+      color: #f5f5f5 !important;
+    }
+
+    body.dark .profile-sub {
+      color: #6ea8ff !important;
+    }
+
+    body.dark .info-row {
+      border-bottom-color: #2a3038 !important;
+    }
+
+    body.dark .info-label {
+      color: #999 !important;
+    }
+
+    body.dark .info-value {
+      color: #e8e8e8 !important;
+    }
+
+    body.dark .vision-text {
+      color: #c5c5c5 !important;
+    }
+
+    body.dark .footer {
+      color: #777 !important;
+    }
+
+    body.dark .footer b {
+      color: #6ea8ff !important;
+    }
+
+    body.dark .bottom-nav {
+      background: #181d23 !important;
+
+      border-top-color: #2a3038 !important;
+    }
+
+    body.dark .nav-item {
+      color: #888 !important;
+    }
+
+    body.dark .nav-item.active {
+      color: #6ea8ff !important;
+    }
+
+
+    /* ================= SCROLLBAR ================= */
+
+    .content::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .content::-webkit-scrollbar-thumb {
+      background: #ccc;
+
+      border-radius: 10px;
+    }
+
+    body.dark .content::-webkit-scrollbar-thumb {
+      background: #444;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <div class="header">
+
+    <button
+      class="back-btn"
+      type="button"
+      onclick="location.href='settings.html'"
+    >
+      ←
+    </button>
+
+    <h1>About ShopList</h1>
+
+  </div>
+
+
+  <!-- =========================
+       CONTENT
+  ========================== -->
+
+  <div class="content">
+
+
+    <!-- ===== PROFILE ===== -->
+
+    <div class="section-title">
+      Profile
+    </div>
+
+
+    <div class="card profile">
+
+      <div class="avatar">
+        👩‍🎓
+      </div>
+
+      <div class="profile-name">
+        Sarah Jane Ysula
+      </div>
+
+      <div class="profile-sub">
+        3rd Year BSIT Student
+      </div>
+
+    </div>
+
+
+    <!-- ===== PROGRAM INFORMATION ===== -->
+
+    <div class="section-title">
+      Program Information
+    </div>
+
+
+    <div class="card">
+
+
+      <div class="info-row">
+
+        <div class="info-label">
+          Project Vision
+        </div>
+
+        <div class="info-value vision-text">
+          "To help students and shoppers manage their expenses wisely through a simple, offline shopping list app that promotes budgeting discipline and organized spending."
+        </div>
+
+      </div>
+
+
+      <div class="info-row">
+
+        <div class="info-label">
+          College
+        </div>
+
+        <div class="info-value">
+          Madridejos Community College
+        </div>
+
+      </div>
+
+
+      <div class="info-row">
+
+        <div class="info-label">
+          Year
+        </div>
+
+        <div class="info-value">
+          2026
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- ===== FOOTER ===== -->
+
+    <div class="footer">
+
+      © 2026
+      <b>ShopList</b>
+      Project
+
+    </div>
+
+
+  </div>
+
+
+  <!-- =========================
+       BOTTOM NAV
+  ========================== -->
+
+  <div class="bottom-nav">
+
+
+    <a
+      class="nav-item"
+      href="home.html"
+    >
+
+      <span class="icon">
+        🏠
+      </span>
+
+      Home
+
+    </a>
+
+
+    <a
+      class="nav-item"
+      href="history.html"
+    >
+
+      <span class="icon">
+        🕐
+      </span>
+
+      History
+
+    </a>
+
+
+    <a
+      class="nav-item active"
+      href="settings.html"
+    >
+
+      <span class="icon">
+        ⚙️
+      </span>
+
+      Settings
+
+    </a>
+
+
+  </div>
+
+
+  <!-- =========================
+       DARK MODE SYNC
+  ========================== -->
+
+  <script>
+
+    function applyAboutTheme() {
+
+      const dark =
+        localStorage.getItem('shoplist_dark') === '1';
+
+      document.body.classList.toggle(
+        'dark',
+        dark
+      );
+
+    }
+
+
+    applyAboutTheme();
+
+
+    window.addEventListener(
+      'pageshow',
+      () => {
+
+        applyAboutTheme();
+
+      }
+    );
+
+
+    document.addEventListener(
+      'visibilitychange',
+      () => {
+
+        if (!document.hidden) {
+
+          applyAboutTheme();
+
+        }
+
+      }
+    );
+
+  </script>
+
+
+</body>
+
+</html>

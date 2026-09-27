@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <!-- Mobile responsive -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="mobile-web-app-capable"
+    content="yes"
+  >
+
+  <title>ShopList</title>
+
+
+  <!-- Existing Theme System -->
+  <script src="js/theme.js"></script>
+
+
+  <style>
+
+    /* =====================================================
+       BASIC RESET
+    ===================================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+
+    /* =====================================================
+       BODY - LIGHT MODE
+    ===================================================== */
+
+    body {
+      /* Mobile app frame */
+      max-width: 400px;
+
+      height: 100vh;
+
+      margin: 0 auto;
+
+      background: #ffffff;
+
+      display: flex;
+      flex-direction: column;
+
+      justify-content: space-between;
+      align-items: center;
+
+      overflow: hidden;
+
+      color: #222;
+
+      transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
+    }
+
+
+    /* =====================================================
+       STATUS BAR
+    ===================================================== */
+
+    .status-bar {
+      width: 100%;
+
+      padding: 12px 20px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      color: #000;
+
+      transition: color 0.25s ease;
+    }
+
+
+    /* =====================================================
+       LOGO AREA
+    ===================================================== */
+
+    .logo-area {
+      flex: 1;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+
+    /* =====================================================
+       LOGO CIRCLE
+    ===================================================== */
+
+    .logo-circle {
+      width: 130px;
+
+      height: 130px;
+
+      background: #EAF3FF;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 60px;
+
+      transition:
+        background-color 0.25s ease;
+    }
+
+
+    .logo-circle span {
+      color: #1E6FEB;
+    }
+
+
+    /* =====================================================
+       TITLE
+    ===================================================== */
+
+    h1 {
+      margin-top: 24px;
+
+      font-size: 36px;
+
+      font-weight: bold;
+
+      color: #1E6FEB;
+
+      letter-spacing: 0.5px;
+    }
+
+
+    /* =====================================================
+       TAGLINE
+    ===================================================== */
+
+    .tagline {
+      margin-top: 12px;
+
+      font-size: 16px;
+
+      color: #777;
+
+      text-align: center;
+
+      line-height: 1.5;
+
+      transition: color 0.25s ease;
+    }
+
+
+    /* =====================================================
+       GET STARTED CONTAINER
+    ===================================================== */
+
+    .btn-container {
+      width: 100%;
+
+      padding: 0 40px 60px;
+    }
+
+
+    /* =====================================================
+       GET STARTED BUTTON
+    ===================================================== */
+
+    .get-started {
+      width: 100%;
+
+      padding: 16px;
+
+      background: #1E6FEB;
+
+      color: white;
+
+      border: none;
+
+      border-radius: 30px;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      letter-spacing: 1.5px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 4px 12px rgba(30, 111, 235, 0.35);
+
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background-color 0.25s ease;
+    }
+
+
+    .get-started:hover {
+      background: #1859c4;
+
+      transform: translateY(-2px);
+    }
+
+
+    .get-started:active {
+      transform: translateY(0);
+    }
+
+
+    /* =====================================================
+       DARK MODE
+    ===================================================== */
+
+    body.dark-mode {
+      background: #121212;
+
+      color: #f5f5f5;
+    }
+
+
+    /* Status bar */
+
+    body.dark-mode .status-bar {
+      color: #f5f5f5;
+    }
+
+
+    /* Logo circle */
+
+    body.dark-mode .logo-circle {
+      background: #1d2d44;
+    }
+
+
+    /* Title remains blue */
+
+    body.dark-mode h1 {
+      color: #4d91ff;
+    }
+
+
+    /* Tagline */
+
+    body.dark-mode .tagline {
+      color: #b8b8b8;
+    }
+
+
+    /* Button */
+
+    body.dark-mode .get-started {
+      background: #1E6FEB;
+
+      box-shadow:
+        0 4px 12px rgba(30, 111, 235, 0.25);
+    }
+
+
+    body.dark-mode .get-started:hover {
+      background: #3b82f6;
+    }
+
+
+  </style>
+
+  <base target="_blank">
+
+</head>
+
+
+<body>
+
+  <!-- =====================================================
+       LOGO / TITLE / TAGLINE
+  ====================================================== -->
+
+  <div class="logo-area">
+
+    <div class="logo-circle">
+
+      <span>🛒</span>
+
+    </div>
+
+
+    <h1>
+      ShopList
+    </h1>
+
+
+    <p class="tagline">
+      Make your shopping<br>
+      simple and organized.
+    </p>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       GET STARTED
+  ====================================================== -->
+
+  <div class="btn-container">
+
+    <button
+      class="get-started"
+      onclick="startApp()"
+    >
+      GET STARTED
+    </button>
+
+  </div>
+
+
+
+  <script>
+
+    /* =====================================================
+       APPLY SAVED DARK MODE
+    ===================================================== */
+
+    function applySavedTheme() {
+
+      try {
+
+        /*
+          Galing sa existing theme.js mo.
+          Kung available ang isDarkMode(),
+          gagamitin natin iyon.
+        */
+
+        if (typeof isDarkMode === "function") {
+
+          const dark =
+            isDarkMode();
+
+          document.body.classList.toggle(
+            "dark-mode",
+            dark
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Theme check error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* Apply theme when page loads */
+
+    applySavedTheme();
+
+
+
+    /* =====================================================
+       GET STARTED
+    ===================================================== */
+
+    function startApp() {
+
+      window.location.href =
+        'home.html';
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>

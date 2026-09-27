@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ShopList - History</title>
+
+  <script src="js/theme.js?v=2"></script>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    body {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      transition:
+        background 0.25s ease,
+        color 0.25s ease;
+    }
+
+
+    /* ================= HEADER ================= */
+
+    .header {
+      background: #1E6FEB;
+      color: white;
+
+      padding: 16px 20px;
+
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+
+      color: white;
+
+      font-size: 22px;
+
+      cursor: pointer;
+
+      width: 30px;
+      height: 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+
+    /* ================= CONTENT ================= */
+
+    .content {
+      flex: 1;
+
+      padding: 16px;
+
+      overflow-y: auto;
+
+      min-height: 0;
+    }
+
+
+    /* ================= HISTORY CARD ================= */
+
+    .history-card {
+      background: white;
+
+      border-radius: 12px;
+
+      padding: 14px;
+
+      margin-bottom: 10px;
+
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.06);
+
+      transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .h-date {
+      font-size: 12px;
+
+      color: #888;
+
+      margin-bottom: 7px;
+    }
+
+    .h-items {
+      font-size: 14px;
+
+      color: #333;
+
+      line-height: 1.5;
+    }
+
+    .h-total {
+      font-size: 13px;
+
+      font-weight: bold;
+
+      color: #1E6FEB;
+
+      margin-top: 7px;
+    }
+
+
+    /* ================= EMPTY ================= */
+
+    .empty {
+      text-align: center;
+
+      color: #aaa;
+
+      margin-top: 60px;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+
+    /* ================= BOTTOM NAV ================= */
+
+    .bottom-nav {
+      background: white;
+
+      border-top: 1px solid #eee;
+
+      display: flex;
+
+      padding: 8px 0 12px;
+
+      flex-shrink: 0;
+
+      transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .nav-item {
+      flex: 1;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      color: #999;
+
+      cursor: pointer;
+
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .nav-item .icon {
+      font-size: 20px;
+
+      display: block;
+
+      margin-bottom: 2px;
+    }
+
+    .nav-item.active {
+      color: #1E6FEB;
+
+      font-weight: 700;
+    }
+
+
+    /* ================= DARK MODE ================= */
+
+    body.dark {
+      background: #101418 !important;
+
+      color: #f2f2f2 !important;
+    }
+
+    body.dark .content {
+      background: #101418 !important;
+    }
+
+    body.dark .history-card {
+      background: #1b2027 !important;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.25) !important;
+    }
+
+    body.dark .h-date {
+      color: #999 !important;
+    }
+
+    body.dark .h-items {
+      color: #e8e8e8 !important;
+    }
+
+    body.dark .h-total {
+      color: #6ea8ff !important;
+    }
+
+    body.dark .empty {
+      color: #777 !important;
+    }
+
+    body.dark .bottom-nav {
+      background: #181d23 !important;
+
+      border-top-color: #2a3038 !important;
+    }
+
+    body.dark .nav-item {
+      color: #888 !important;
+    }
+
+    body.dark .nav-item.active {
+      color: #6ea8ff !important;
+    }
+
+
+    /* ================= SCROLLBAR ================= */
+
+    .content::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .content::-webkit-scrollbar-thumb {
+      background: #c9c9c9;
+
+      border-radius: 10px;
+    }
+
+    body.dark .content::-webkit-scrollbar-thumb {
+      background: #444;
+    }
+
+  </style>
+
+  <base target="_blank">
+
+</head>
+
+
+<body>
+
+
+  <!-- ================= HEADER ================= -->
+
+  <div class="header">
+
+    <button
+      class="back-btn"
+      type="button"
+      onclick="location.href='home.html'"
+    >
+      ←
+    </button>
+
+    <h1>
+      History
+    </h1>
+
+  </div>
+
+
+  <!-- ================= HISTORY CONTENT ================= -->
+
+  <div
+    class="content"
+    id="historyList"
+  ></div>
+
+
+  <!-- ================= BOTTOM NAV ================= -->
+
+  <div class="bottom-nav">
+
+    <a
+      class="nav-item"
+      href="home.html"
+    >
+
+      <span class="icon">
+        🏠
+      </span>
+
+      Home
+
+    </a>
+
+
+    <a
+      class="nav-item active"
+      href="history.html"
+    >
+
+      <span class="icon">
+        🕐
+      </span>
+
+      History
+
+    </a>
+
+
+    <a
+      class="nav-item"
+      href="settings.html"
+    >
+
+      <span class="icon">
+        ⚙️
+      </span>
+
+      Settings
+
+    </a>
+
+  </div>
+
+
+  <script>
+
+
+    /* =====================================================
+       DARK MODE
+    ===================================================== */
+
+    function applyHistoryTheme() {
+
+      const dark =
+        localStorage.getItem(
+          'shoplist_dark'
+        ) === '1';
+
+
+      document.body.classList.toggle(
+        'dark',
+        dark
+      );
+
+    }
+
+
+    /* =====================================================
+       HISTORY
+    ===================================================== */
+
+    function renderHistory() {
+
+      let items = [];
+
+      try {
+
+        items = JSON.parse(
+          localStorage.getItem(
+            'shoplist_items'
+          ) || '[]'
+        );
+
+      } catch (error) {
+
+        items = [];
+
+      }
+
+
+      const completed =
+        items.filter(
+          i => i.status === 'completed'
+        );
+
+
+      const listEl =
+        document.getElementById(
+          'historyList'
+        );
+
+
+      /* =========================
+         NO HISTORY
+      ========================= */
+
+      if (completed.length === 0) {
+
+        listEl.innerHTML = `
+
+          <div class="empty">
+
+            No purchase history yet.
+
+            <br>
+
+            Mark items as bought
+            to see them here! 🛒
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      /* =====================================================
+         GROUP ITEMS BY DATE
+      ===================================================== */
+
+      const byDate = {};
+
+
+      completed.forEach(
+        item => {
+
+          const dateValue =
+            item.createdAt ||
+            item.createdDate ||
+            new Date().toISOString();
+
+
+          const date =
+            new Date(
+              dateValue
+            ).toLocaleDateString();
+
+
+          if (!byDate[date]) {
+
+            byDate[date] = [];
+
+          }
+
+
+          byDate[date].push(item);
+
+        }
+      );
+
+
+      /* =====================================================
+         SORT DATES
+      ===================================================== */
+
+      const sortedDates =
+        Object.keys(byDate).sort(
+          (a, b) => {
+
+            return (
+              new Date(b).getTime() -
+              new Date(a).getTime()
+            );
+
+          }
+        );
+
+
+      /* =====================================================
+         CREATE HISTORY CARDS
+      ===================================================== */
+
+      listEl.innerHTML =
+        sortedDates.map(
+          date => {
+
+            const group =
+              byDate[date];
+
+
+            const total =
+              group.reduce(
+                (sum, item) =>
+                  sum +
+                  Number(
+                    item.actualSpent || 0
+                  ),
+                0
+              );
+
+
+            const itemNames =
+              group.map(
+                item => {
+
+                  const name =
+                    escapeHtml(
+                      item.name ||
+                      'Unnamed Item'
+                    );
+
+
+                  const qty =
+                    Number(
+                      item.qty || 0
+                    );
+
+
+                  const unit =
+                    escapeHtml(
+                      item.unit || ''
+                    );
+
+
+                  return `
+                    ${name}
+                    (${qty} ${unit})
+                  `;
+
+                }
+              ).join(', ');
+
+
+            return `
+
+              <div class="history-card">
+
+                <div class="h-date">
+
+                  📅
+                  ${escapeHtml(date)}
+
+                </div>
+
+
+                <div class="h-items">
+
+                  ${itemNames}
+
+                </div>
+
+
+                <div class="h-total">
+
+                  Total spent:
+                  ₱${total.toFixed(2)}
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        ).join('');
+
+    }
+
+
+    /* =====================================================
+       ESCAPE HTML
+    ===================================================== */
+
+    function escapeHtml(value) {
+
+      return String(value)
+
+        .replace(
+          /&/g,
+          '&amp;'
+        )
+
+        .replace(
+          /</g,
+          '&lt;'
+        )
+
+        .replace(
+          />/g,
+          '&gt;'
+        )
+
+        .replace(
+          /"/g,
+          '&quot;'
+        )
+
+        .replace(
+          /'/g,
+          '&#039;'
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIAL LOAD
+    ===================================================== */
+
+    applyHistoryTheme();
+
+    renderHistory();
+
+
+    /* =====================================================
+       RETURN TO PAGE
+    ===================================================== */
+
+    window.addEventListener(
+      'pageshow',
+      function () {
+
+        applyHistoryTheme();
+
+        renderHistory();
+
+      }
+    );
+
+
+    document.addEventListener(
+      'visibilitychange',
+      function () {
+
+        if (!document.hidden) {
+
+          applyHistoryTheme();
+
+          renderHistory();
+
+        }
+
+      }
+    );
+
+
+  </script>
+
+
+</body>
+
+</html>
